@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no" />
+	<meta name="google" content="notranslate" />
+	<title>Password Manager</title>
+	<link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+	<link rel="icon" href="icons/favicon.ico" />
+	<link rel="stylesheet" href="styles.css" />
+	<link rel="manifest" href="manifest.json" />
+</head>
+<body>
+	<h1>Password Manager</h1>
+	<div class="table-container">
+		<table>
+			<thead>
+				<tr>
+					<th><input type="checkbox" id="selectAll" /></th>
+					<th>Login</th>
+					<th>Password</th>
+					<th>URL</th>
+				</tr>
+			</thead>
+			<tbody id="passwordsTableBody"></tbody>
+		</table>
+	</div>
+	<button id="deleteRecords" hidden>Delete selected records</button>
+	<fieldset>
+		<legend>Add Password</legend>
+		<form id="passwordForm">
+			<input type="text" id="login" placeholder="Login" required />
+			<div class="password-container password-form">
+				<input type="password" id="password" placeholder="Password" required />
+				<div class="icon-container">
+					<span class="firstIcon" onclick="generatePassword()">
+						<i class="fas sync-alt" title="Generate Password"></i>
+					</span>
+					<span class="secondIcon" id="eyeIcon" onclick="togglePassword(this)">
+						<i class="fas eye-slash" title="Show Password"></i>
+					</span>
+				</div>
+			</div>
+			<details>
+				<summary>Generation Options</summary>
+				<ul>
+					<span id="rangeValue">Length (4-128): </span>
+					<input type="number" step="1" min="4" max="128" value="16" id="passwordRange" onblur="this.value = Math.max(Math.min(this.value, 128), 4)" onmousewheel />
+					<li>
+						<input type="checkbox" id="uppercase" name="uppercase" checked />
+						<label for="uppercase">Uppercase (A - Z)</label>
+					</li>
+					<li>
+						<input type="checkbox" id="lowercase" name="lowercase" checked />
+						<label for="lowercase">Lowercase (a - z)</label>
+					</li>
+					<li>
+						<input type="checkbox" id="numbers" name="numbers" checked />
+						<label for="numbers">Numbers (0 - 9)</label>
+					</li>
+					<li>
+						<input type="checkbox" id="symbols" name="symbols" checked />
+						<label for="symbols">Special symbols (#, $, %, &, @, ^, `, ~)</label>
+					</li>
+					<li>
+						<input type="checkbox" id="exclude-similar" name="exclude-similar" checked />
+						<label for="exclude-similar">Exclude similar characters (i, l, o, I, O, 0, 1)</label>
+					</li>
+				</ul>
+			</details>
+			<input type="url" id="url" onblur="fixURL(this)" placeholder="URL" required />
+			<button type="submit">Add</button>
+		</form>
+	</fieldset>
+	<script src="script.js"></script>
+</body>
+</html>
